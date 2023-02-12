@@ -1,7 +1,7 @@
 # Проект «Киноман»
 
-* Студент: [Vlad Ivanishin](https://up.htmlacademy.ru/ecmascript/19/user/792583).
-* Наставник: `Неизвестно`.
+* Студент: [Ash Taylor](https://up.htmlacademy.ru/ecmascript/19/user/792583).
+* Наставник: `nope`.
 
 ---
 
