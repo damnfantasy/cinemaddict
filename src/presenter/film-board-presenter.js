@@ -17,11 +17,15 @@ export default class FilmBoardPresenter {
   filmsMostCommentedContainerComponent = new FilmsListContainerView();
   filmsTopRatedContainerComponent = new FilmsListContainerView();
 
-  constructor({filmContainer}) {
+  constructor({filmContainer, moviesModel}) {
     this.filmContainer = filmContainer;
+    this.moviesModel = moviesModel;
   }
 
   init() {
+    this.boardMovies = [...this.moviesModel.getMovies()];
+    console.log(this.boardMovies)
+
     this.#renderFilmCards();
     this.#renderTopRatedExtra();
     this.#renderMostCommentedExtra();
@@ -33,8 +37,8 @@ export default class FilmBoardPresenter {
     render(this.filmsListComponent, this.filmsComponent.getElement());
     render(this.filmsListContainerComponent, this.filmsListComponent.getElement());
 
-    for (let i = 0; i < 5; i++) {
-      render(new FilmCardView(), this.filmsListContainerComponent.getElement());
+    for (let i = 0; i < this.boardMovies.length; i++) {
+      render(new FilmCardView({movie: this.boardMovies[i]}), this.filmsListContainerComponent.getElement());
     }
 
     render(new ShowMoreButtonView(), this.filmsListComponent.getElement());
@@ -42,20 +46,30 @@ export default class FilmBoardPresenter {
   }
 
   #renderTopRatedExtra() {
+    const copy = [...this.boardMovies];
+    const sortedByRating = copy.sort((a, b) => b.filmInfo.totalRating - a.filmInfo.totalRating);
+    const topRatedExtra = sortedByRating.slice(0, 2);
+
     render(this.filmsTopRatedComponent, this.filmsComponent.getElement());
     render(this.filmsTopRatedContainerComponent, this.filmsTopRatedComponent.getElement());
 
-    for (let i = 0; i < 2; i++) {
-      render(new FilmCardView(), this.filmsTopRatedContainerComponent.getElement());
+    for (const extra of topRatedExtra) {
+      render(new FilmCardView({movie: extra}), this.filmsTopRatedContainerComponent.getElement());
     }
+
   }
 
   #renderMostCommentedExtra() {
+    const copy = [...this.boardMovies];
+    const sortedByComments = copy.sort((a, b) => b.comments.length - a.comments.length);
+
+    const mostCommentedExtra = sortedByComments.slice(0, 2);
+
     render(this.filmsMostCommentedComponent, this.filmsComponent.getElement());
     render(this.filmsMostCommentedContainerComponent, this.filmsMostCommentedComponent.getElement());
 
-    for (let i = 0; i < 2; i++) {
-      render(new FilmCardView(), this.filmsMostCommentedContainerComponent.getElement());
+    for (const extra of mostCommentedExtra) {
+      render(new FilmCardView({movie: extra}), this.filmsMostCommentedContainerComponent.getElement());
     }
   }
 }

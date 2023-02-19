@@ -1,15 +1,20 @@
 import { createElement } from '../render';
 
-function createFooterStatisticsTemplate() {
+function createFooterStatisticsTemplate(count) {
   return (
-    `<p>130 291 movies inside</p>
+    `<p>${count} movies inside</p>
     `
   );
 }
 
 export default class FooterStatisticsView {
+  constructor({count}) {
+    this.count = count;
+
+  }
+
   getTemplate() {
-    return createFooterStatisticsTemplate();
+    return createFooterStatisticsTemplate(this.count);
   }
 
   getElement() {
