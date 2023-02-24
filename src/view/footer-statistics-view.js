@@ -8,24 +8,26 @@ function createFooterStatisticsTemplate(count) {
 }
 
 export default class FooterStatisticsView {
+  #element = null;
+  #count = null;
+
   constructor({count}) {
-    this.count = count;
-
+    this.#count = count;
   }
 
-  getTemplate() {
-    return createFooterStatisticsTemplate(this.count);
+  get template() {
+    return createFooterStatisticsTemplate(this.#count);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }

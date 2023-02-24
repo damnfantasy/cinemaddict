@@ -4,14 +4,14 @@ import { allComments } from '../mock/comment.js';
 const MOVIE_COUNT = 15;
 
 export default class MoviesModel {
-  movies = Array.from({length: MOVIE_COUNT}, generateMovie);
-  comments = allComments;
+  #movies = Array.from({length: MOVIE_COUNT}, generateMovie);
+  #comments = allComments;
 
-  getMovies() {
-    return this.movies;
+  get movies() {
+    return this.#movies;
   }
 
-  getComments() {
-    return this.comments;
+  get comments() {
+    return this.#comments;
   }
 }

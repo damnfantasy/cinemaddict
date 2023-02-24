@@ -22,23 +22,26 @@ function createUserTitleTemplate(moviesWatched) {
 }
 
 export default class UserTitleView {
+  #element = null;
+  #moviesWatched = null;
+
   constructor({moviesWatched}) {
-    this.moviesWatched = moviesWatched;
+    this.#moviesWatched = moviesWatched;
   }
 
-  getTemplate() {
-    return createUserTitleTemplate(this.moviesWatched);
+  get template() {
+    return createUserTitleTemplate(this.#moviesWatched);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
 
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
