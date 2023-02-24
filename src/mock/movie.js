@@ -56,7 +56,7 @@ function generateMovie() {
 
   return {
     id: nanoid(),
-    comments: commentsId,
+    commentsId: commentsId,
     filmInfo: {
       title: movie.title,
       alternativeTitle: movie.alternativeTitle,

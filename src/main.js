@@ -11,7 +11,7 @@ import dayjs from 'dayjs';
 import { getRandomInteger } from './mock/mock.js';
 // import { getComments } from './mock/movie.js';
 import { moviesWatchedCount } from './utils.js';
-import FilmPopupView from './view/film-popup-view.js';
+// import FilmPopupView from './view/film-popup-view.js';
 
 
 const siteMainElement = document.querySelector('.main');
@@ -21,7 +21,7 @@ const moviesModel = new MoviesModel();
 
 
 render(new UserTitleView({moviesWatched: moviesWatchedCount(moviesModel.movies)}), siteHeaderElement);
-render(new FilterView(), siteMainElement);
+render(new FilterView({movie: moviesModel.getMovies()}), siteMainElement);
 
 const filmBoardPresenter = new FilmBoardPresenter({
   filmContainer: siteMainElement,
@@ -30,7 +30,9 @@ const filmBoardPresenter = new FilmBoardPresenter({
 
 filmBoardPresenter.init();
 
-// console.log(moviesModel.movies)
+// console.log(moviesModel.movies.filter((film) => film.userDetails.isAlreadyWatched).length)
 render(new FooterStatisticsView({count: moviesModel.movies.length}), footerStatisticsElement);
+
+// console.log(moviesModel.getComments())
 
 // render(new FilmPopupView(), siteMainElement)
